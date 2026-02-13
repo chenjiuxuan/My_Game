@@ -3,16 +3,43 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  sanity:
+  lint-and-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Show repo files
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+          cache-dependency-path: |
+            requirements-dev.txt
+            requirements.txt
+            pyproject.toml
+
+      - name: Install dependencies
         run: |
-          ls -la
-          echo "CI sanity check passed ✅"
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+
+      - name: Ruff (lint)
+        run: |
+          ruff check .
+
+      - name: Ruff (format check)
+        run: |
+          ruff format --check .
+
+      - name: Pytest
+        run: |
+          pytest -q
