@@ -4,11 +4,10 @@
 
 import json
 import os
-from typing import Optional
-from src.my_game.core.game import Game
+from typing import Optional, Any
 
 
-def save_game(game: Game, filename: str = "savegame.json") -> None:
+def save_game(game: Any, filename: str = "savegame.json") -> None:
     """
     保存游戏进度到文件。
 
@@ -49,7 +48,7 @@ def save_game(game: Game, filename: str = "savegame.json") -> None:
         raise IOError(f"保存游戏时出错: {e}")
 
 
-def load_game(filename: str = "savegame.json") -> Optional[Game]:
+def load_game(filename: str = "savegame.json") -> Optional[Any]:
     """
     从文件加载游戏进度。
 
@@ -74,7 +73,7 @@ def load_game(filename: str = "savegame.json") -> Optional[Game]:
     return _reconstruct_game(save_data)
 
 
-def _reconstruct_game(save_data: dict) -> Optional[Game]:
+def _reconstruct_game(save_data: dict) -> Optional[Any]:
     """
     从保存的数据重构游戏对象。
 
