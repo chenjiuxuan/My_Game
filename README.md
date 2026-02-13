@@ -1,2 +1,2 @@
 My_GAME
-测试一下
+CI bootstrap
