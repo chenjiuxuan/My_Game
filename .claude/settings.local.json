@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venvScriptsactivate)",
+      "Bash(python -m pytest:*)",
+      "Bash(.venvScriptsactivate.bat)",
+      "Bash(grep:*)"
+    ]
+  }
+}
