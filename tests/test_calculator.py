@@ -128,7 +128,7 @@ class TestCalculator:
 
     def test_calculate_average_empty_list(self):
         """Test average calculation with empty list - should raise exception (bug: no check)."""
-        with pytest.raises(ZeroDivisionError):
+        with pytest.raises(ValueError):
             calculate_average([])
 
     # Test cases for find_max function (has bug: initial value and empty list)

@@ -21,7 +21,8 @@ def multiply(a, b):
 
 def divide(a, b):
     """Divide a by b."""
-    # Bug: No check for division by zero
+    if b == 0:
+        raise ZeroDivisionError("Division by zero is not allowed")
     return a / b
 
 
@@ -59,7 +60,8 @@ def factorial(n):
 
 def calculate_average(numbers):
     """Calculate the average of a list of numbers."""
-    # Bug: No check for empty list
+    if not numbers:
+        raise ValueError("Cannot calculate average of an empty list")
     total = 0
     for num in numbers:
         total = add(total, num)
